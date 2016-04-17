@@ -44,8 +44,9 @@ public class MuseOscServer {
 				    sdl.start();
 				    
 				    float rawFreq = msg.get(0).floatValue();
+				    float tunedFreq = MuseReader.findNearestNote(rawFreq);
 					for( int i = 0; i < 10000 * (float )44100 / 1000; i++ ) {	    
-				        double angle = i / ( (float )44100 / rawFreq/*440*/ ) * 2.0 * Math.PI;
+				        double angle = i / ( (float )44100 / tunedFreq/*440*/ ) * 2.0 * Math.PI;
 				        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
 				        sdl.write( buf, 0, 1 );
 				        System.out.print("EEG on channel " + 0 + ": " + msg.get(0).floatValue() + "\n"); 
@@ -53,7 +54,7 @@ public class MuseOscServer {
 				    sdl.drain();
 				    sdl.stop();
 				} catch (Exception e) {
-					System.out.println("boo");
+					System.out.println("Exception thrown when playing sound.");
 				}
 			
 		}
