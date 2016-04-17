@@ -47,7 +47,7 @@ public class MuseOscServer {
 				    float tunedFreq = MuseReader.findNearestNote(rawFreq);
 					for( int i = 0; i < 10000 * (float )44100 / 1000; i++ ) {	    
 				        double angle = i / ( (float )44100 / tunedFreq/*440*/ ) * 2.0 * Math.PI;
-				        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
+				        buf[ 0 ] = (byte )( Math.sin( angle ) * 500);
 				        sdl.write( buf, 0, 1 );
 				        System.out.print("EEG on channel " + 0 + ": " + tunedFreq + "\n"); 
 					}
