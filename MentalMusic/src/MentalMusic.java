@@ -1,5 +1,7 @@
 import java.util.*;
 
+import GUI.Window;
+
 
 public class MentalMusic {
 
@@ -15,6 +17,8 @@ public class MentalMusic {
 		
 		
 		//System.out.print("bla");
+
+
 	}
 
 }
