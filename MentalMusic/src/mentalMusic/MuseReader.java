@@ -19,7 +19,7 @@ public class MuseReader {
 	
 	
 
-	public static Double findNearestNote(Double dbl){
+	public static float findNearestNote(float dbl){
 		//dbl = dbl/2; //divide by 2 for regular notes
 		
 		Integer low_num = 550;
@@ -59,19 +59,19 @@ public class MuseReader {
 		
 		switch(integer){
 			case 1:
-				return 130.82;
+				return 130.82f;
 			case 2:
-				return 146.83;
+				return 146.83f;
 			case 3:
-				return 164.81;
+				return 164.81f;
 			case 4:
-				return 174.61;
+				return 174.61f;
 			case 5:
-				return 196.00;
+				return 196.00f;
 			case 6:
-				return 220.00;
+				return 220.00f;
 			default:
-				return 246.94;
+				return 246.94f;
 							
 		}
 		
