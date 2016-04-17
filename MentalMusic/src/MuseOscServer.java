@@ -18,7 +18,7 @@ public class MuseOscServer {
 	public void connectToMuse(String museName) {
 		//TODO: make this a bool that returns false if stuff breaks
 		museOscServer = new MuseOscServer();
-		museOscServer.museServer = new OscP5(museOscServer, recvPort);
+		museOscServer.museServer = new OscP5(museOscServer, recvPort, OscP5.TCP);
 	}
 	
 	void oscEvent(OscMessage msg) {
