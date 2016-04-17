@@ -45,7 +45,7 @@ public class MuseOscServer {
 				    
 				    float rawFreq = msg.get(0).floatValue();
 				    float tunedFreq = MuseReader.findNearestNote(rawFreq);
-					for( int i = 0; i < 10000 * (float )44100 / 1000; i++ ) {	    
+					for( int i = 0; i < 1000 * (float )44100 / 1000; i++ ) {	    
 				        double angle = i / ( (float )44100 / tunedFreq/*440*/ ) * 2.0 * Math.PI;
 				        buf[ 0 ] = (byte )( Math.sin( angle ) * 500);
 				        sdl.write( buf, 0, 1 );
