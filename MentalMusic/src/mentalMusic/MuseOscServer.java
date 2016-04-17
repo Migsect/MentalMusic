@@ -1,3 +1,4 @@
+package mentalMusic;
 
 import oscP5.*;
 
@@ -28,5 +29,10 @@ public class MuseOscServer {
 				System.out.print("EEG on channel " + i + ": " + msg.get(i).floatValue() + "\n"); 
 			}
 		} 
+	}
+
+	public void disconnectMuse(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 }

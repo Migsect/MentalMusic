@@ -1,3 +1,4 @@
+package mentalMusic;
 import java.net.SocketException;
 import java.util.Date;
 import oscP5.*;
@@ -6,7 +7,7 @@ import oscP5.*;
 public class MuseReader {
 	
 	static int recvPort = 5000;
-	MuseReader(){
+	public MuseReader(){
 		
 	}
 	
