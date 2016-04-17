@@ -1,0 +1,12 @@
+import com.choosemuse.libmuse.MuseManager;
+import com.choosemuse.libmuse.MuseManagerAndroid;
+
+
+public class MentalMusic {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MuseManager museManager = MuseManagerAndroid.getInstance();
+	}
+
+}
