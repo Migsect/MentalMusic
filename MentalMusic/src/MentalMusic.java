@@ -9,7 +9,10 @@ public class MentalMusic {
 		//while (true) {
 			//Muse-A168
 			
-			mr.readAddress("/muse/eeg/quantization");
+		//mr.readAddress("/muse/eeg/quantization");
+		MuseOscServer server = new MuseOscServer();
+		server.connectToMuse("/muse/eeg/quantization");
+		
 		
 		//System.out.print("bla");
 	}
