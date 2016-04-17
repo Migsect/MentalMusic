@@ -49,7 +49,7 @@ public class MuseOscServer {
 				        double angle = i / ( (float )44100 / tunedFreq/*440*/ ) * 2.0 * Math.PI;
 				        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
 				        sdl.write( buf, 0, 1 );
-				        System.out.print("EEG on channel " + 0 + ": " + msg.get(0).floatValue() + "\n"); 
+				        System.out.print("EEG on channel " + 0 + ": " + tunedFreq + "\n"); 
 					}
 				    sdl.drain();
 				    sdl.stop();
