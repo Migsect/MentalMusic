@@ -9,7 +9,7 @@ public class MentalMusic {
 		//while (true) {
 			//Muse-A168
 			
-			System.out.println(mr.connectToMuse("/muse/eeg/quantization"));
+			mr.readAddress("/muse/eeg/quantization");
 		
 		//System.out.print("bla");
 	}
