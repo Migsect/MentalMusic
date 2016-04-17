@@ -29,17 +29,16 @@ public class MuseOscServer {
 	void oscEvent(OscMessage msg) {
 		System.out.println("### got a message " + msg);
 		if (msg.checkAddrPattern("/muse/eeg")==true) {  
-			for(int i = 0; i < 4; i++) {
+			//for(int i = 0; i < 4; i++) {
 				try{
 					byte[] buf = new byte[ 1 ];
 				    AudioFormat af = new AudioFormat( (float )44100, 8, 1, true, false );
 				    SourceDataLine sdl = AudioSystem.getSourceDataLine( af );
 				    sdl.open();
 				    sdl.start();
-				    for( int k = 0; k < 1000 * (float )44100 / 1000; k++ ) {
-				        //double angle = k / ( (float )44100 / 440 ) * 2.0 * Math.PI;
-				    	
-				        buf[ 0 ] = (byte )( Math.sin( msg.get(i).floatValue() ) * 100 );
+				    for( int i = 0; i < 1000 * (float )44100 / 1000; i++ ) {
+				        double angle = i / ( (float )44100 / msg.get(i).floatValue()/*440*/ ) * 2.0 * Math.PI;
+				        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
 				        sdl.write( buf, 0, 1 );
 				    }
 				    sdl.drain();
@@ -48,7 +47,7 @@ public class MuseOscServer {
 					System.out.println("boo");
 				}
 				//System.out.print("EEG on channel " + i + ": " + msg.get(i).floatValue() + "\n"); 
-			}
+			//}
 		} 
 	}
 
