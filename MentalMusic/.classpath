@@ -16,6 +16,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/R/Documents/UC year 3/MentalMusic/MentalMusic/javaosc-core-0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/R/Documents/UC year 3/MentalMusic/oscP5/library/oscP5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
