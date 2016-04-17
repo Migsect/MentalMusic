@@ -22,10 +22,10 @@ public class MuseReader {
 	public static float findNearestNote(float dbl){
 		//dbl = dbl/2; //divide by 2 for regular notes
 		
-		Integer low_num = 550;
-		Integer high_num = 1150;
+		Integer low_num = 550*3;
+		Integer high_num = 1150*3;
 		Integer diff = high_num - low_num;
-		Integer poss_val = 7;
+		Integer poss_val = 21*3;
 		
 		Integer num_div = 0;
 		Integer num_mult = 0;
@@ -70,9 +70,38 @@ public class MuseReader {
 				return 196.00f;
 			case 6:
 				return 220.00f;
+			case 7:
+				return 261.63f;
+			case 8:
+				return 293.66f;
+			case 9:
+				return 329.63f;
+			case 10:
+				return 349.23f;
+			case 11:
+				return 392.00f;
+			case 12:
+				return 440.00f;
+			case 13:
+				return 493.88f;
+			case 14:
+				return 523.25f;
+			case 15:
+				return 587.33f;
+			case 16:
+				return 659.26f;
+			case 17:
+				return 698.46f;
+			case 18:
+				return 783.99f;
+			case 19:
+				return 880.00f;
+			case 20:
+				return 987.77f;
+			case 21:
+				return 1046.50f;
 			default:
-				return 246.94f;
-							
+				return 1174.66f;						
 		}
 		
 		/*if(dbl < 0){
