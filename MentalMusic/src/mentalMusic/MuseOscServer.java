@@ -1,5 +1,8 @@
 package mentalMusic;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
@@ -12,7 +15,7 @@ public class MuseOscServer {
 	
 	OscP5 museServer;
 	static int recvPort = 5000;
-
+	ExecutorService fixedPool;
 	
 	
 	/*public static void main(String [] args) {
@@ -24,6 +27,10 @@ public class MuseOscServer {
 		//TODO: make this a bool that returns false if stuff breaks
 		museOscServer = new MuseOscServer();
 		museOscServer.museServer = new OscP5(museOscServer, recvPort, OscP5.TCP);
+		
+		//thread pool
+		fixedPool = Executors.newFixedThreadPool(4);
+		
 	}
 	
 	void oscEvent(OscMessage msg) {
@@ -31,18 +38,9 @@ public class MuseOscServer {
 		if (msg.checkAddrPattern("/muse/eeg")==true) {  
 			//for(int i = 0; i < 4; i++) {
 				try{
-					byte[] buf = new byte[ 1 ];
 				    AudioFormat af = new AudioFormat( (float )44100, 8, 1, true, false );
 				    SourceDataLine sdl = AudioSystem.getSourceDataLine( af );
-				    sdl.open();
-				    sdl.start();
-				    for( int i = 0; i < 1000 * (float )44100 / 1000; i++ ) {
-				        double angle = i / ( (float )44100 / msg.get(i).floatValue()/*440*/ ) * 2.0 * Math.PI;
-				        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
-				        sdl.write( buf, 0, 1 );
-				    }
-				    sdl.drain();
-				    sdl.stop();
+				    fixedPool.submit(new SoundPlayer(msg, sdl));
 				} catch (Exception e) {
 					System.out.println("boo");
 				}
@@ -55,4 +53,6 @@ public class MuseOscServer {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }

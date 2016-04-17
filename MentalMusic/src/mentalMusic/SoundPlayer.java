@@ -12,67 +12,36 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-public class SoundPlayer {
-	
-	Queue<byte[]> sounds;
+import oscP5.OscMessage;
 
-	public SoundPlayer(){
-		sounds = new LinkedList<>();
+public class SoundPlayer implements Runnable{
+
+	
+	public SoundPlayer(OscMessage msg, SourceDataLine sdl){
+		this.msg = msg;
+		this.sdl = sdl;
 	}
 	
-	public SoundPlayer(byte[] sound){
-		sounds = new LinkedList<>();
-		this.add(sound);
-	}
-	
-	public SoundPlayer(Queue<byte[]> sounds){
-		this.sounds = sounds;
-	}
-	
-	public void add(byte[] sound){
-		sounds.add(sound);
-	}
-	
-	private void playAll(){
-		while (!sounds.isEmpty()){
-			play(sounds.remove());
-		}
-	}
-	
-	private void play(byte[] sound){
-		InputStream byteArrayInputStream = new ByteArrayInputStream(
-                sound);
-		AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
-		InputStream soundInputStream = new ByteArrayInputStream(sound);
-		DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
-        SourceDataLine sourceDataLine = null;
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		try {
-			sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-		} catch (LineUnavailableException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			byte[] buf = new byte[ 1 ];
+			sdl.open();
+		    sdl.start();
+		    for( int i = 0; i < 1000 * (float )220 / 1000; i++ ) {
+		        double angle = i / ( (float )44100 / msg.get(i).floatValue()/*440*/ ) * 2.0 * Math.PI;
+		        buf[ 0 ] = (byte )( Math.sin( angle ) * 1000 );
+		        sdl.write( buf, 0, 1 );
+		    }
+		    sdl.drain();
+		    sdl.stop();
+		} catch (Exception e) {
+			System.out.println("~~~~Issue with SoundPlayer thread~~~~");
 		}
-        try {
-			sourceDataLine.open(format);
-		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
-        sourceDataLine.start();
-        AudioInputStream audioInputStream  = new AudioInputStream(byteArrayInputStream,format, sound.length / format.getFrameSize());
-        int cnt = 0;
-        byte tempBuffer[] = new byte[10000];
-		  try {
-              while ((cnt = audioInputStream.read(tempBuffer, 0,tempBuffer.length)) != -1) {
-                  if (cnt > 0) {
-                      // Write data to the internal buffer of
-                      // the data line where it will be
-                      // delivered to the speaker.
-                      sourceDataLine.write(tempBuffer, 0, cnt);
-                  }// end if
-              }
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-		//AudioDataStream audStream = new AudioDataStream(new AudioData(sound));
 	}
+	
+	private OscMessage msg;
+	private SourceDataLine sdl;
+	
 }
