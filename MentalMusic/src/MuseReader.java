@@ -23,6 +23,7 @@ public class MuseReader {
 			};
 			receiver.addListener(museName, listener);
 			receiver.startListening();
+			//receiver.wait
 			return true;
 		} catch(Exception e) {
 			//TODO: fix this

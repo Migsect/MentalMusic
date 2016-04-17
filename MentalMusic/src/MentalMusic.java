@@ -8,8 +8,8 @@ public class MentalMusic {
 		MuseReader mr = new MuseReader();
 		while (true) {
 			//Muse-A168
-			mr.connectToMuse("/muse/eeg/quantization");
-			System.out.println("stuff");
+			
+			System.out.println(mr.connectToMuse("/muse/eeg/quantization"));
 		}
 		//System.out.print("bla");
 	}
