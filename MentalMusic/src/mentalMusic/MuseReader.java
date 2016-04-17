@@ -18,16 +18,63 @@ public class MuseReader {
 	}
 	
 	
-	public Double findNearestNote(Double dbl){
-		dbl = dbl/2; //divide by 2 for regular notes
+	public static Double findNearestNote(Double dbl){
+		//dbl = dbl/2; //divide by 2 for regular notes
+		
+		Integer low_num = 550;
+		Integer high_num = 1150;
+		Integer diff = high_num - low_num;
+		Integer poss_val = 7;
 		
 		Integer num_div = 0;
-		while (dbl > 246.94 || dbl < 246.94){
-			dbl = dbl/2;
+		Integer num_mult = 0;
+		
+		while(dbl < low_num){
+			dbl = dbl*2;
 			num_div++;
 		}
+		while(dbl > high_num){
+			dbl = dbl/2;
+			num_mult++;
+		}
 		
-		if(dbl < 0){
+		dbl = ((dbl-low_num)/diff*poss_val);
+		
+		if (num_div != 0){
+			if (num_div > 2){
+				num_div = 2;
+			}
+			dbl = dbl/num_div;
+		}
+		
+		if (num_mult != 0){
+			if (num_mult > 2){
+				num_mult = 2;
+			}
+			dbl = dbl*num_mult;
+		}
+		
+		Integer integer = new Integer((new Long(Math.round(dbl)).intValue()));
+		
+		switch(integer){
+			case 1:
+				return 130.82;
+			case 2:
+				return 146.83;
+			case 3:
+				return 164.81;
+			case 4:
+				return 174.61;
+			case 5:
+				return 196.00;
+			case 6:
+				return 220.00;
+			default:
+				return 246.94;
+							
+		}
+		
+		/*if(dbl < 0){
 			num_div *= (-1);
 		}
 		
@@ -53,7 +100,7 @@ public class MuseReader {
 			dbl = 246.94;
 		}
 		
-		return dbl*num_div;
+		return dbl*num_div;*/
 	}
 
 	private Integer valueOf(int i) {
